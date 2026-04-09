@@ -1,5 +1,5 @@
-import Link from 'next/Link';
-import { Github, Youtube, Instagram, Linkedin } from 'lucide-react';
+import Link from 'next/link';
+import {SiGithub, SiYoutube, SiInstagram} from '@icons-pack/react-simple-icons';
 
 const menuItems = [
   { label: 'Homepage', href: '/'},
@@ -9,10 +9,9 @@ const menuItems = [
 ];
 
 const socialLinks = [
-  { icon: Github, href: '', label: 'Github' },
-  { icon: Youtube, href: '', label: 'Youtube' },
-  { icon: Instagram, href: '', label: 'Instagram' },
-  { icon: Linkedin, href: '', label: 'Linkedin' },
+  { icon: SiGithub, href: '', label: 'Github' },
+  { icon: SiYoutube, href: '', label: 'Youtube' },
+  { icon: SiInstagram, href: '', label: 'Instagram' },
 ];
 
 export default function Footer() {
