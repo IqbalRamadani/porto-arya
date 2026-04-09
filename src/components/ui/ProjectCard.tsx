@@ -61,7 +61,7 @@ export default function ProjectCard({
 
           {/* Tech Stack */}
           <div className="flex flex-wrap gap-2">
-            {stack.slice(0, 4).map((tech) => (
+            {(stack || []).slice(0, 4).map((tech) => (
               <span
                 key={tech}
                 className="inline-block rounded-md border border-border px-2 py-1 text-xs font-mono text-muted-foreground"
@@ -69,7 +69,7 @@ export default function ProjectCard({
                 {tech}
               </span>
             ))}
-            {stack.length > 4 && (
+            {(stack?.length || 0) > 4 && (
               <span className="inline-block rounded-md px-2 py-1 text-xs font-mono text-muted-foreground">
                 +{stack.length -4}
               </span>
