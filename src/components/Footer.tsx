@@ -1,5 +1,11 @@
+"use client";
+ 
+import { useState } from "react";
+
 import Link from 'next/link';
 import {SiGithub, SiYoutube, SiInstagram} from '@icons-pack/react-simple-icons';
+import { ChevronRight } from 'lucide-react';
+
 
 const menuItems = [
   { label: 'Homepage', href: '/'},
@@ -11,66 +17,71 @@ const menuItems = [
 const socialLinks = [
   { icon: SiGithub, href: '', label: 'Github' },
   { icon: SiYoutube, href: '', label: 'Youtube' },
-  { icon: SiInstagram, href: '', label: 'Instagram' },
+  { icon: SiInstagram, href: '', label: 'Instagram' }
 ];
 
+
 export default function Footer() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [hoveredLink, setHoveredLink] = useState<string | null>(null)
+  
   return (
-    <footer className="bg-black text-white">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-          {/* Menu */}
+    <div className="p-4">
+    <footer className="bg-neutral-900 rounded-xl px-8 lg:px-12 py-8 lg:py-10">
+        <div className="flex flex-col sm:flex-row justify-between gap-8">
+          {/* Left: Menu links */}
           <div>
-            <h3 className="text-sm text-gray-400 mb-4">Menu</h3>
-            <nav className="flex flex-col space-y-3">
-              {menuItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="text-base hover:text-gray-300 transition-colors"
-                >
-                  {item.label}
-                </Link>
+            <p className="text-white text-xl font-regular mb-3">Menu</p>
+            <ul className="space-y-1 -ml-2">
+              {menuItems.map((link) => (
+                 <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    className="flex items-center py-1 group"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {/* Chevron geser dari kiri, dorong teks ke kanan */}
+                    <span className="text-white font-semibold text-2xl 
+                                    -translate-x-4 opacity-0 
+                                    group-hover:translate-x-0 group-hover:opacity-100 
+                                    transition-all duration-200 ease-out">
+                     <ChevronRight/>
+                    </span>
+
+                    {/* Teks ikut bergeser ke kanan saat chevron muncul */}
+                    <span className="text-white font-semibold text-2xl 
+                                    -translate-x-4
+                                    group-hover:translate-x-0 group-hover:underline group-hover:underline-offset-4
+                                    transition-all duration-200 ease-out">
+                      {link.label}
+                    </span>
+                  </Link>
+                </li>
               ))}
-            </nav>
+            </ul>
           </div>
-
-          {/* Social Media */}
-          <div className="flex justify-center items-start">
-              <div>
-                <h3 className="text-sm text-gray-400 mb-4">Connect</h3>
-                <div className="flex space-x-4">
-                  {socialLinks.map((social) => (
-                    <Link
-                      key={social.label}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:text-gray-300 transition-colors"
-                      aria-label={social.label}
-                    >
-                      <social.icon className="h-5 w-5" />
-                    </Link>
-                  ))}
-                </div>
-              </div>
-          </div>
-
-          {/* Logo */}
-          <div className="flex justify-end items-start">
-            <div className="text-right">
-              <div className="text-6xl font-bold tracking-tighter">AT.</div>
+ 
+          {/* Right: Social icons + Logo */}
+          <div className="flex flex-col items-start sm:items-end justify-between gap-6">
+            <div className="flex gap-8">
+            {socialLinks.map((social, index) => (
+              <a key={index} href={social.href} className="text-white/60 hover:text-white transition-colors">
+                <social.icon className="w-10 h-10" />
+              </a>
+            ))}
             </div>
           </div>
-
-          {/* Copyright */}
-          <div className="border-t border-gray-800 pt-8">
-            <p className="text-sm text-gray-500 text-center">
-              © 2026 Arya Team. All Rights Reserved.
-            </p>
-          </div>
         </div>
-      </div>
-    </footer>
+ 
+        <div className="mt-8 pt-6 flex flex-col-reverse sm:flex-row justify-between items-start sm:items-end gap-4">
+          <p className="text-white text-lg">
+            © 2026 Arya Team.<br />All Rights Reserved.
+          </p>
+          <div className="text-right">
+              <img src="/AT-w.webp" alt="" className="w-20 md:w-48" />
+            </div>
+        </div>
+      </footer>
+    </div>
   )
 }
