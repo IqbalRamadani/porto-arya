@@ -1,9 +1,5 @@
 'use client'
-
-import Link from 'next/link'
 import { useState } from 'react'
-import { Menu, X } from 'lucide-react'
-import { cn } from '@/lib/utils'
 
 const menuItems = [
   { label: 'Homepage', href: '/' },
@@ -13,64 +9,61 @@ const menuItems = [
 ]
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur support-[backdrop-filter]:bg-background">
-      <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="flex items-center">
-              <span className="text-2xl font-bold tracking-tighter">AT.</span>
-              <span className="ml-2 text-sm text-muted-foreground">Homepage</span>
+    <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-sm">
+        <div className="bg-white shadow-sm rounded-xl border border-neutral-300 overflow-visible">
+          {/* Navbar Header */}
+          <div className="flex items-center justify-between px-3 py-2">
+            <div className="flex items-center gap-2">
+              <img src="/AT-b.webp" alt="" className='w-8'/>
+              <span className="text-sm font-medium text-neutral-700">Creators</span>
             </div>
-          </Link>
-
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            {menuItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden inline-flex items-center justify-center rounded-md p-2 text-foreground/60 hover:bg-accent hover:text-foreground focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary transition-colors"
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      <div
-        className={cn(
-          'md:hidden overflow-hidden transition-all duration-300 ease-in-out',
-          isOpen ? 'max-h-96 border-b border-border' : 'max-h-0'
-        )}
-      >
-        <div className="container mx-auto px-4 py-4 space-y-4">
-          {menuItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => setIsOpen(false)} // Close menu on link click
-              className="block py-2 text-base font-medium text-foreground/80 hover:text-foreground transition-colors"
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-neutral-100 transition-colors"
+              aria-label="Toggle menu"
             >
-              {item.label}
-            </Link>
-          ))}
+              {menuOpen ? (
+                <svg width="16" height="2" viewBox="0 0 16 2" fill="none">
+                  <rect width="16" height="2" rx="1" fill="#111" />
+                </svg>
+              ) : (
+                <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
+                  <rect width="16" height="2" rx="1" fill="#111" />
+                  <rect y="5" width="16" height="2" rx="1" fill="#111" />
+                  <rect y="10" width="16" height="2" rx="1" fill="#111" />
+                </svg>
+              )}
+            </button>
+          </div>
+ 
+          {/* Dropdown Menu */}
+          <div
+            className={`overflow-hidden transition-all duration-300 ease-in-out ${
+              menuOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
+            }`}
+          >
+            <div className="px-4 pb-4 pt-1 border-t border-neutral-100">
+              <p className="text-xs text-black font-medium mb-2 px-1">menu</p>
+              <ul className="space-y-1">
+                {menuItems.map((link) => (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-neutral-100 transition-colors group -ml-2"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      <img className="w-12 h-8 rounded-md bg-neutral-200 block" />
+                      <span className="text-lg font-medium text-black">{link.label}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
   )
 }

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { getAllProjects } from '@/lib/mdx';
 import ProjectCard from '@/components/ui/ProjectCard';
 
@@ -11,7 +10,7 @@ export default async function ProjectsPage() {
   const projects = await getAllProjects()
 
   return (
-    <div className="min-h-screen bg-background py-20">
+    <div className="min-h-screen py-28">
       <div className="container mx-auto px-4">
         {/* Page Header */}
         <div className="mb-16 text-center">

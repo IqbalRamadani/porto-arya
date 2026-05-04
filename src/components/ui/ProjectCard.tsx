@@ -24,59 +24,43 @@ export default function ProjectCard({
 }: ProjectCardProps) {
   return (
     <Link href={`/projects/${slug}`} className={cn('group block', className)}>
-      <div className="relative overflow-hidden rounded-lg border border-border bg-card transition-all hover:shadow-xl hover:scale-[1.5]">
+      <div className="relative overflow-hidden rounded-2xl aspect-[16/9] w-full">
+        
         {/* Thumbnail */}
-        <div className= "relative aspect-video w-full overflow-hidden bg-muted">
-          <Image
-            src={thumbnail}
-            alt={title}
-            fill
-            className="object-cover transition-transform duration-300 group-hover:scale-110"
-          />
-          <div className="absolute inset-0 bg-linear-to-t from-black/60 to-black/0" />
-          
-          {/* Category Badge */}
-          <div className="absolute top-4 left-4">
-            <span className="inline-block rounded-full bg-white/90 px-3 text-xs font-medium text-black backdrop-blur-sm">
-              {category}
-            </span>
-          </div>
+        <Image
+          src="/cardImg.webp"
+          alt="image"
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+        />
 
-          {/* Hover Icon */}
-          <div className="absolute top-4 right-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-black">
-              <ArrowUpRight className="h-4 w-4" />
+        {/* Overlay gelap — muncul saat hover */}
+        <div className="absolute inset-0 bg-neutral-900/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+        {/* Konten hover — muncul dari bawah */}
+        <div className="absolute inset-0 flex flex-col justify-end p-5 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 ease-out">
+          
+          {/* Category */}
+          <p className="text-white/60 text-sm font-medium">Web Development</p>
+
+          {/* Title + Arrow row */}
+          <div className="flex items-end justify-between">
+            <h3 className="text-white font-medium text-2xl leading-tight">
+              Fortik Website
+            </h3>
+
+            {/* Arrow button pojok kanan bawah */}
+            <div className="shrink-0 flex h-10 w-10 items-center justify-center rounded-full bg-white text-black">
+              <ArrowUpRight className="h-5 w-5" />
             </div>
           </div>
         </div>
 
-        {/* Content */}
-        <div className="p-6">
-          <h3 className="mb-2 text-xl font-bold text-card-foreground">
-            {title}
-          </h3>
-          <p className="mb-4 text-sm text-card-foreground/80">
-            {description}
-          </p>
+      </div>
 
-          {/* Tech Stack */}
-          <div className="flex flex-wrap gap-2">
-            {(stack || []).slice(0, 4).map((tech) => (
-              <span
-                key={tech}
-                className="inline-block rounded-md border border-border px-2 py-1 text-xs font-mono text-muted-foreground"
-              >
-                {tech}
-              </span>
-            ))}
-            {(stack?.length || 0) > 4 && (
-              <span className="inline-block rounded-md px-2 py-1 text-xs font-mono text-muted-foreground">
-                +{stack.length -4}
-              </span>
-            )}
-          </div>
-        </div>
+      <div className='mt-4 font-medium text-2xl'>
+        <h1>Fortik Website</h1>
       </div>
     </Link>
-  )
+  );
 }
